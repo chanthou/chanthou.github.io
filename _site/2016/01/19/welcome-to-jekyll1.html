@@ -1,0 +1,128 @@
+<h2 id="get-offerid-api">Get offerId API:</h2>
+<ul>
+  <li>Method: POST</li>
+  <li>Url: dev.idcrm.com/antargaz-web-service/offer/create</li>
+  <li>Get offerId Rule</li>
+</ul>
+
+<p>```
+#!php</p>
+
+<p>public function rules()</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+	</span><span class="err">return</span><span class="w"> </span><span class="err">[</span><span class="w">
+		</span><span class="err">'prospect.leadid'</span><span class="w"> </span><span class="err">=&gt;</span><span class="w"> </span><span class="err">'required',</span><span class="w">
+		</span><span class="err">'prospect.antar_marche'</span><span class="w"> </span><span class="err">=&gt;</span><span class="w"> </span><span class="err">'required',</span><span class="w">
+		</span><span class="err">'prospect.antar_type'</span><span class="w"> </span><span class="err">=&gt;</span><span class="w"> </span><span class="err">'required',</span><span class="w">
+		</span><span class="err">'prospect.antar_typename'=&gt;</span><span class="w"> </span><span class="err">'required',</span><span class="w">
+
+		</span><span class="err">'prospect.antar_car'=&gt;</span><span class="w">  </span><span class="err">'required|integer|min:1',</span><span class="w">
+		</span><span class="err">'prospect.antar_npce'=&gt;</span><span class="w"> </span><span class="err">array(</span><span class="nt">"required"</span><span class="err">,</span><span class="nt">"max:14"</span><span class="err">,'regex</span><span class="p">:</span><span class="err">/^</span><span class="p">[</span><span class="mi">0-9</span><span class="p">]{</span><span class="err">14</span><span class="p">}</span><span class="err">|</span><span class="p">[</span><span class="err">a-zA-Z</span><span class="p">]{</span><span class="err">2</span><span class="p">}[</span><span class="mi">0-9</span><span class="p">]{</span><span class="err">6</span><span class="p">}</span><span class="err">|</span><span class="p">[</span><span class="mi">0-9</span><span class="err">a-zA-Z</span><span class="p">]</span><span class="err">/')</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.antar_profil'=&gt;</span><span class="w"> </span><span class="err">'required|max</span><span class="p">:</span><span class="mi">4</span><span class="err">|in:P</span><span class="mi">011</span><span class="p">,</span><span class="err">P012,P013,P014,P015,P016,P017,P018,P019',</span><span class="w">
+		</span><span class="err">'prospect.antar_situationname'=&gt;</span><span class="w"> </span><span class="err">'required|max</span><span class="p">:</span><span class="mi">10</span><span class="err">|in:PARTCHANGF</span><span class="p">,</span><span class="err">PROCOLLCHA,PARTNVEAUL,PROCOLLTNV,PARTNVEAUR,PROCOLLNV',</span><span class="w">
+		</span><span class="err">'prospect.address1_line1'=&gt;</span><span class="w"> </span><span class="err">'required',</span><span class="w">
+		</span><span class="err">'prospect.emailaddress1'=&gt;</span><span class="w"> </span><span class="err">'required|email|max</span><span class="p">:</span><span class="mi">255</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.mobilephone'=&gt;</span><span class="w"> </span><span class="err">'required|max</span><span class="p">:</span><span class="mi">10</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.zAdrConso_CodeInsee'=&gt;</span><span class="w"> </span><span class="err">'required',</span><span class="w">
+		</span><span class="err">'prospect.antar_codepostallivraison'=&gt;</span><span class="w"> </span><span class="err">'required|numeric|digits</span><span class="p">:</span><span class="mi">5</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.zAdrFact_CodeInsee'=&gt;</span><span class="w"> </span><span class="err">'required|numeric|digits</span><span class="p">:</span><span class="mi">5</span><span class="err">'</span><span class="p">,</span><span class="w"> </span><span class="err">//this</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">codeInsse</span><span class="w">
+		</span><span class="err">'prospect.antar_codepostal_fact_fr'=&gt;</span><span class="w"> </span><span class="err">'required|numeric|digits</span><span class="p">:</span><span class="mi">5</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.zAdrContractant_CodeInsee'=&gt;</span><span class="w"> </span><span class="err">'required|numeric|digits</span><span class="p">:</span><span class="mi">5</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.antar_code_postal'=&gt;</span><span class="w"> </span><span class="err">'required|numeric|digits</span><span class="p">:</span><span class="mi">5</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.antar_rcs'=&gt;</span><span class="w"> </span><span class="err">'required|in</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="err">0',</span><span class="w">
+		
+		</span><span class="err">'prospect.antar_civilitename'=&gt;</span><span class="w"> </span><span class="err">'required|string|max</span><span class="p">:</span><span class="mi">5</span><span class="err">|in:M.</span><span class="p">,</span><span class="err">MME,MLLE',</span><span class="w">
+		</span><span class="err">'prospect.firstname'=&gt;</span><span class="w"> </span><span class="err">'required|string|max</span><span class="p">:</span><span class="mi">40</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.lastname'=&gt;</span><span class="w"> </span><span class="err">'required|string|max</span><span class="p">:</span><span class="mi">25</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.antar_gdr'=&gt;</span><span class="w"> </span><span class="err">'required',</span><span class="w">
+		
+
+		</span><span class="err">'prospect.telephone1'=&gt;</span><span class="w"> </span><span class="err">'string|max</span><span class="p">:</span><span class="mi">10</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.companyname'=&gt;</span><span class="w"> </span><span class="err">'string|max</span><span class="p">:</span><span class="mi">40</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.antar_formesocialename'=&gt;</span><span class="w"> </span><span class="err">'string|max</span><span class="p">:</span><span class="mi">20</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.antar_codenaf'=&gt;</span><span class="w"> </span><span class="err">'string|max</span><span class="p">:</span><span class="mi">6</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'prospect.antar_capital'=&gt;</span><span class="w"> </span><span class="err">'numeric',</span><span class="w">
+		
+		</span><span class="err">'offer.antar_renonce_delais'=&gt;</span><span class="w"> </span><span class="err">'required',</span><span class="w">
+		</span><span class="err">'offer.antar_modereglement'=&gt;</span><span class="w"> </span><span class="err">'required',</span><span class="w">
+		</span><span class="err">'offer.antar_modereglementname'=&gt;</span><span class="w"> </span><span class="err">'required|min</span><span class="p">:</span><span class="mi">1</span><span class="err">|max:</span><span class="mi">10</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'offer.antar_modalitdefacturationname'=&gt;</span><span class="w"> </span><span class="err">'required|min</span><span class="p">:</span><span class="mi">1</span><span class="err">|max:</span><span class="mi">10</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'offer.antar_delaireglementname'=&gt;</span><span class="w"> </span><span class="err">'required|min</span><span class="p">:</span><span class="mi">3</span><span class="err">|max:</span><span class="mi">10</span><span class="err">'</span><span class="p">,</span><span class="w">
+		</span><span class="err">'offer.antar_is_codeavantage'=&gt;</span><span class="w"> </span><span class="err">'required|boolean',</span><span class="w">
+		</span><span class="err">'offer.antar_offer'=&gt;</span><span class="w"> </span><span class="err">'required|integer',</span><span class="w">
+		</span><span class="err">'offer.antar_codebareme'=&gt;</span><span class="w"> </span><span class="err">'required'</span><span class="w">
+	</span><span class="err">];</span><span class="w">
+</span><span class="err">}</span><span class="w"> </span><span class="err">```</span><span class="w">
+</span></code></pre>
+</div>
+
+<ul>
+  <li>Request Params</li>
+</ul>
+
+<p>```
+#!json</p>
+
+<p>{
+  “prospect”: {
+    “antar_npce”: “Z6852000000035”,
+    “leadid”: “5e0c8156-905b-e511-80e8-3863bb3c33b0”,
+    “antar_marche”: “533240000”,
+    “antar_type”: “533240000”,
+    “antar_typename”: “Professionnel”,
+    “antar_profil”: “P012”,
+    “antar_situationname”: “PROCOLLCHA”,
+    “address1_line1”: “372 ROUTE DE LA COTE D AMOUR”,
+     “emailaddress1”: “chanthou98@gmail.com”,
+    “mobilephone”: “0123456789”,
+    “antar_civilitename”: “M.”,
+    “firstname”: “test”,
+    “lastname”: “test”,
+    “antar_codeinsee”: “44184”,
+    “antar_codepostallivraison”: “44600”,
+    “antar_ville_fact_fr”: “44184”,
+    “antar_codepostal_fact_fr”: “44600”,
+    “antar_ville”: “44184”,
+    “antar_code_postal”: “44600”,
+    “antar_car”: “92652”,
+    “antar_gdr”: “GRDF”,
+    “telephone1”: “098383838”,
+    “antar_formesocialename”: “Non défini”,
+    “antar_capital”: “1”,
+    “antar_codenaf”: “45.11Z”,
+    “companyname”: “Antargaz”
+    },</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>"offer": {
+    "antar_codebareme": "N1511P25",
+    "antar_offer": "2",
+    "antar_renonce_delais": 1,
+    "antar_modereglement": "533240002",
+    "antar_modalitdefacturationname": "A",
+    "antar_modereglementname": "S",
+    "antar_delaireglementname": "E05",
+    "antar_iban": "",
+    "antar_is_codeavantage": "1"
+} } ``` * Response Success:
+</code></pre>
+</div>
+
+<p>```
+#!json</p>
+
+<p>{
+ “status”:1, “offer_id”: 343434 
+}
+```</p>
+
+<ul>
+  <li>Response fail
+```
+#!json</li>
+</ul>
+
+<p>{
+ “status”:0, “message”: “prospect_error:[exception] Ce PCE est déjà utilisé pour un autre prospect” 
+}
+```</p>
